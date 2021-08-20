@@ -43,8 +43,10 @@ def home():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"/api/v1.0/<start>/<end>"
+        "Enter your start date in the api route below, between 2010-01-01 and 2017-08-23<br/>"
+        f"/api/v1.0/2016-04-22<br/>"
+        "Enter your start and end dates in the api route below, between 2010-01-01 and 2017-08-23<br/>"
+        f"/api/v1.0/2016-04-22/2016-05-04"
     )
 
 
@@ -156,7 +158,9 @@ def calc_temps(start):
 
     session.close()
 
-    return jsonify(results)   
+    named_results = {'tmin': results[0][0], 'tavg':results[0][1], 'tmax':results[0][2]}
+
+    return jsonify(named_results)   
 
 @app.route("/api/v1.0/<start>/<end>")
 def calc_temps_2(start, end):
@@ -177,7 +181,9 @@ def calc_temps_2(start, end):
 
     session.close()
 
-    return jsonify(results)      
+    named_results = {'tmin': results[0][0], 'tavg':results[0][1], 'tmax':results[0][2]}
+
+    return jsonify(named_results)       
 
 
 if __name__ == '__main__':
